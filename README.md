@@ -1,67 +1,125 @@
-Project: Learning Management Software
-
-Description: Learning Management System is software that helps to create, share, and manage various training courses and educational content. It is a user-friendly platform connecting instructors and students. Where Instructors create courses and students enroll for it. To provide these functionalities, LMS includes various tools that simplify the creation of educational content, attaching notes files, providing resource links, and attaching video materials, as well as establish the entire learning process through thorough pacing, various assessments, grading systems, and much more.
 
 
 
-## Project Video Demo Here 
-https://youtu.be/XhVS9abSYXs
 
 
-Click on the image below to watch a video demonstration of our OnlineCourseWebsite:
+# 🎓 LMS Pro — Scalable Learning Management System
 
-[![OnlineCourseWebsite 2023](https://img.youtube.com/vi/XhVS9abSYXs/1.jpg)](https://youtu.be/8tX7jDgXXX0)
+LMS Pro is a **production-grade, full-stack learning platform** featuring **high-performance video streaming**, **automated assessments**, and robust **Role-Based Access Control (RBAC)**. Built for scalability, it supports complex workflows for **students**, **instructors**, and **administrators** with clean separation of concerns.
 
-Project UI:
+<p align="center">
+  <a href="#-system-architecture">Architecture</a> •
+  <a href="#-rbac-portals">RBAC</a> •
+  <a href="#-platform-workflow">Workflow</a> •
+  <a href="#-technology-stack">Tech Stack</a> •
+  <a href="#-project-structure">Structure</a> •
+  <a href="#-getting-started">Getting Started</a> •
+  <a href="#-roadmap">Roadmap</a>
+</p>
 
-## Student login Page
-<img width="1440" alt="ocw1" src="https://user-images.githubusercontent.com/112989454/223568252-07e6307d-561c-4c4e-9cab-850899abd805.png">
+---
 
-## Instructor Login Page
-<img width="1440" alt="ocw2" src="https://user-images.githubusercontent.com/112989454/223568418-293cc0a7-dd23-4b11-8ae7-efb949245c1a.png">
+## 🏗️ System Architecture
 
-## Student Register Page
-<img width="1440" alt="ocw3" src="https://user-images.githubusercontent.com/112989454/223568582-c3175449-bfdc-408e-bf3d-d078c4680aa2.png">
+LMS Pro follows a **Decoupled Micro-Monolith** design so heavy jobs (video transcoding, certificate generation) run asynchronously and **never degrade the core learning experience**.
 
-## Instructor Register Page
-<img width="1440" alt="ocw4" src="https://user-images.githubusercontent.com/112989454/223568759-b9a73846-6c49-4c27-9820-0366545448ba.png">
+### 🗺️ High-Level Overview
 
-## Student Home page after logig
-<img width="1440" alt="ocw5" src="https://user-images.githubusercontent.com/112989454/223568783-f4e67edd-06b0-4d66-b99c-e2f16436bcdf.png">
+> Tip: This diagram uses **Mermaid**. GitHub renders Mermaid automatically in markdown.
 
-## Student Profile page
-<img width="1440" alt="ocw6" src="https://user-images.githubusercontent.com/112989454/223569111-1fc3d3b0-ef29-4c21-b72b-99b847a169be.png">
+<img width="1024" height="1024" alt="Gemini_Generated_Image_ohfc8wohfc8wohfc" src="https://github.com/user-attachments/assets/b9ef734b-ca73-469e-94d2-a28301074561" />
 
-## Student Profile editing page
-<img width="1440" alt="ocw7" src="https://user-images.githubusercontent.com/112989454/223569274-2627d4b5-178a-41f1-886b-f5273839d746.png">
+## 🔑 RBAC Portals
 
-## Student Enroll/UnEnroll page
-<img width="1440" alt="ocw8" src="https://user-images.githubusercontent.com/112989454/223569300-d01c2bfd-a7c4-417c-ac46-7c1a1f3dc2a4.png">
+The system is partitioned into three distinct management portals.
 
-## Student feedback page
-<img width="1440" alt="ocw9" src="https://user-images.githubusercontent.com/112989454/223569641-0c5fd4e9-d66d-4f26-be54-57fbe5d9f41b.png">
+| Role | Portal Access | Key Responsibilities |
+|---|---|---|
+| **Student** | Student Dashboard | Consume content, track progress, take quizzes, earn certificates |
+| **Professor** | Instructor Studio | Create courses, upload media, grade assignments, monitor analytics |
+| **Admin** | Global Admin Panel | User governance, content moderation, financial reports, system health |
 
+---
 
-## Instructor Home Page
-<img width="1440" alt="ocw11" src="https://user-images.githubusercontent.com/112989454/223569762-7a43db2c-5287-434c-ba0c-ae7982f9451b.png">
+## 🌐 Platform Workflow
 
-## Instructor Profile Page
-<img width="1440" alt="ocw12" src="https://user-images.githubusercontent.com/112989454/223569803-b0302e68-d481-475b-a3af-79512641ce11.png">
+### 1) Discovery & Learning Loop (Student)
 
-## Instructor Create New Course Page
-<img width="1440" alt="ocw14" src="https://user-images.githubusercontent.com/112989454/223569961-d718764f-63b0-4219-8a72-da05c7681723.png">
+- **Onboarding:** Instant authentication via JWT
+- **Enrollment:** Secure checkout via Stripe triggers automated course access
+- **Consumption:** Adaptive bitrate video streaming via CDN for low-buffer playback
+- **Completion:** Quiz Engine validates performance → triggers PDF Worker to generate a verified certificate
 
-# Instructor Create New Course Page, adding more fields
-<img width="1440" alt="ocw15" src="https://user-images.githubusercontent.com/112989454/223570086-b750277d-b5af-4306-811e-fcee56de9ddc.png">
+### 2) Teaching Loop (Professor)
 
-## Instructor quizz creation page
-<img width="1440" alt="ocw13" src="https://user-images.githubusercontent.com/112989454/223569888-3fdaf1d9-a29c-498b-897c-ee0fa3c70d43.png">
+- **Content Ingest:** Drag-and-drop course builder saves metadata to MongoDB
+- **Video Pipeline:** Transcoding converts 4K uploads into mobile-friendly resolutions (stored on AWS S3)
+- **Insights:** Heatmap analytics highlight video drop-off points and lesson engagement
 
-## About Page
-<img width="1245" alt="Screenshot 2023-03-07 at 5 41 16 PM" src="https://user-images.githubusercontent.com/112989454/223570463-46e8e83c-9a05-4dcf-82ad-377c070e2396.png">
+---
 
+## 🛠️ Technology Stack
 
-## Student && Instructor Logout Page
+- **Frontend:** React.js, Tailwind CSS, Lucide Icons
+- **Backend:** Node.js (Express), JWT Auth, Socket.io (real-time updates)
+- **Databases:** PostgreSQL (transactions), MongoDB (content), Redis (cache)
+- **Infrastructure:** AWS S3 (storage), CloudFront (CDN), RabbitMQ (task queue)
 
-<img width="477" alt="ocw10" src="https://user-images.githubusercontent.com/112989454/223569703-a2dda6e4-a8d9-4453-81b9-64456427b74f.png">
+---
 
+## 📂 Project Structure
+
+```txt
+.
+├── client/             # React Portals (Student, Professor, Admin)
+├── server/             # Express API Services
+│   ├── middleware/     # RBAC & Auth Guards
+│   ├── workers/        # PDF Generation & Email Services
+│   └── models/         # Multi-database schemas (Mongoose/Sequelize)
+├── config/             # AWS/Stripe/Firebase integration
+└── docs/               # System Design & API Specs
+```
+
+---
+
+## 🚀 Getting Started
+
+### Clone & Install
+
+```bash
+git clone https://github.com/rajkandula/LMS_.git
+cd LMS_
+npm install
+```
+
+### Environment Setup
+
+Create a `.env` file and configure:
+
+```env
+DATABASE_URL=your_postgres_connection_string
+JWT_SECRET=your_jwt_secret
+STRIPE_KEY=your_stripe_key
+```
+
+> Tip: Add `.env` to `.gitignore` and never commit it.
+
+### Run Dev Mode
+
+```bash
+npm run dev
+```
+
+---
+
+## 📈 Roadmap
+
+- [ ] **AI Tutoring:** Integrated LLM to answer student questions based on course data
+- [ ] **Mobile App:** Flutter / React Native version for offline learning
+- [ ] **Live Classrooms:** WebRTC integration for synchronous workshops
+
+---
+
+## 👤 Maintainer
+
+**Raj Kandula**
